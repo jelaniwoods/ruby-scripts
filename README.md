@@ -199,6 +199,7 @@ reads the contents of `lib/input_files/word_count_text.txt` and, based on what's
 "File input: The first draft is just you telling yourself the story.\n"
 "Character count (with spaces): 55"
 "Character count (without spaces): 46"
+"Number of words: 10"
 "Occurrences of 'story': 1"
 ```
 
