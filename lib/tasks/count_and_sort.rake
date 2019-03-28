@@ -12,7 +12,8 @@ task :count_and_sort do
   ap "Your numbers:"
   ap "["
   numbers.each do |i|
-    ap "     [" + count.to_s + "]" + i.to_s + ','
+    ap "     [" + count.to_s + "] " + i.to_s + ','
+    count += 1
   end
   ap "]"
   ap "Count: " + count.to_s
@@ -20,7 +21,8 @@ task :count_and_sort do
   ap "["
   c = 0
   numbers.sort.each do |n|
-    ap "     [" + c.to_s + "]" + n.to_s + ','
+    ap "     [" + c.to_s + "] " + n.to_s + ','
+    c += 1
   end
   ap "]"
 end
