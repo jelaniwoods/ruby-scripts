@@ -22,5 +22,16 @@ task :maximum do
   #      - I replace the previous max with it.
   #    - If not, I do nothing and go to the next element.
   #  - After we've looked at every element, what we're left with should be the real maximum
-
+  count = 0
+  max = numbers[0]
+  ap "Your numbers:"
+  ap "["
+  numbers.each do |i|
+    if i > max
+      max = i
+    end
+    ap "     [" + count.to_s + "]" + i.to_s + ','
+  end
+  ap "]"
+  ap "Maximum: " + max.to_s
 end

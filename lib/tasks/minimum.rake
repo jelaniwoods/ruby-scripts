@@ -22,4 +22,16 @@ task :minimum do
   #      - I replace the previous min with it.
   #    - If not, I do nothing and go to the next element.
   #  - After we've looked at every element, what we're left with should be the real minimum
+  count = 0
+  min = numbers[0]
+  ap "Your numbers:"
+  ap "["
+  numbers.each do |i|
+    if i < min
+      min = i
+    end
+    ap "     [" + count.to_s + "]" + i.to_s + ','
+  end
+  ap "]"
+  ap "Minimum: " + min.to_s
 end

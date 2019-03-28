@@ -54,5 +54,6 @@ task :quote do
   # =====================================================================
   # Your code goes below.
   # =====================================================================
-
+  random_quote = quotations.sample
+  ap random_quote[:quote] + " -- " + random_quote[:citation]
 end

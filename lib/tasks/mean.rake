@@ -15,5 +15,16 @@ task :mean do
   # To find the mean (or average) of a set,
   #  - we sum up all the elements
   #  - then we divide the sum by the number of elements in the set
-
+  count = 0
+  max = 0
+  ap "Your numbers:"
+  ap "["
+  numbers.each do |i|
+    max+=i
+    count+=1
+    ap "     [" + count.to_s + "]" + i.to_s + ','
+  end
+  ap "]"
+  max /= count
+  ap "Mean: " + max.to_s
 end

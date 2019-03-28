@@ -17,4 +17,9 @@ task :sum do
   #  - for each number in the set,
   #    - we add it to the running total
   #  - after we've looked at every number, the running total is the sum
+  sum = 0
+  numbers.each do |i|
+    sum += i
+  end
+  ap sum
 end

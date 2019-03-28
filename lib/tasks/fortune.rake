@@ -7,9 +7,12 @@ task :fortune do
     "Bide your time, for success is near",
     "Every day in your life is a special occasion"
   ]
-
   # =====================================================================
   # Your code goes below.
   # =====================================================================
-
+  # ap(fortunes[(0..fortunes.length - 1).to_a.shuffle[0]])
+  # output = fortunes.at(rand(5))
+  index = rand(5)
+  output = fortunes.at(index)
+  ap output
 end
