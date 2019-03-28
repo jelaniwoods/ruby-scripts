@@ -265,24 +265,34 @@ describe "count_and_sort.rake" do
 
     # ap(rake_task_output)
     rake_task_output.split("\n").each_with_index do |line, index|
-      puts "#{line} [#{index}]"
+      puts "#{line} [~#{index}]"
       answer_line = ""
-      if index.between?(2, count + 2)
-        if index <= count + 2
-          puts numbers[(index - 2)]
-          answer_line = numbers[(index - 2)]
-        else index < count + 2 + count
-          puts sorted_numbers[(index - count - 2)]
-          answer_line = sorted_numbers[(index - count - 2)]
-        end
-      elsif index.between?(count + 2, count + 3)
-        puts count
-        answer_line = count
-      elsif index > count + 3
-        puts "test"
+      case index
+      when 0
+        puts "Your numbers:"
+        answer_line = "Your numbers:"
+      when 1
+        puts "["
+        answer_line = "["
+      when 2..(count + 2)
+        puts numbers[(index - 2)].to_s
+        answer_line = numbers[(index - 2)]
+      when (count + 3)
+        puts"Count: #{count}"
+        answer_line = "Count: #{count}"
+      when count + 4
+        puts "Sorted numbers:"
+        answer_line = "Sorted numbers:"
+      when (count + 5)..(count * 2 + 4)
+        puts sorted_numbers[(index - count - 5)]
+        answer_line = sorted_numbers[(index - count - 5)]
       end
       puts "\n"
-      expect(line.index(/#{answer_line}/)).to be_truthy
+      if answer_line.is_a?(String) && answer_line.size == 1
+        expect(line.index(answer_line)).to be_truthy
+      else
+        expect(line.index(/#{answer_line}/)).to be_truthy
+      end
     end
     # expect(rake_task_output.index(sorted_numbers_regex)).to be_truthy
 
