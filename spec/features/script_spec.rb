@@ -257,58 +257,38 @@ describe "count_and_sort.rake" do
     sorted_numbers = numbers.sort
     count = numbers.count
 
-    regex_string = sorted_numbers.inject("") {|num, str| "#{Regexp.escape(num)}.*#{str}" }
-    sorted_numbers_regex = Regexp.new(regex_string)
-    # ap(sorted_numbers_regex)
-
     rake_task_output = capture_rake_task_output(task_name: 'count_and_sort')
 
-    # ap(rake_task_output)
     rake_task_output.split("\n").each_with_index do |line, index|
-      puts "#{line} [~#{index}]"
       answer_line = ""
       case index
       when 0
-        puts "Your numbers:"
         answer_line = "Your numbers:"
       when 1
-        puts "["
         answer_line = "["
       when 2..(count + 1)
-        puts "[" + (index - 2).to_s + "] " + numbers[(index - 2)].to_s
         answer_line = "[" + (index - 2).to_s + "] " + numbers[(index - 2)].to_s
       when (count + 2)
-        puts "]"
         answer_line = "]"
       when (count + 3)
-        puts"Count: #{count}"
         answer_line = "Count: #{count}"
       when count + 4
-        puts "Sorted Numbers:"
         answer_line = "Sorted Numbers:"
       when count + 5
-        puts "["
         answer_line = "["
       when (count + 6)..(count * 2 + 5)
-        puts "[" + (index - count - 6).to_s + "] " + sorted_numbers[(index - count - 6)].to_s
         answer_line =  "[" + (index - count - 6).to_s + "] " + sorted_numbers[(index - count - 6)].to_s
       when count * 2 + 6
-        puts "]"
         answer_line = "]"
       end
-      puts "\n"
-      if answer_line.size == 1
-        expect(line.index(answer_line)).to be_truthy
-      elsif answer_line.at(0) == "["
-        ap line
-        ap answer_line
+
+      if answer_line.size > 1 && answer_line.at(0) == "["
         expect(line.index(answer_line.split.at(0))).to be_truthy
         expect(line.index(answer_line.split.at(1))).to be_truthy
       else
-        expect(line.index(/#{answer_line}/)).to be_truthy
+        expect(line.index(answer_line)).to be_truthy
       end
     end
-    # expect(rake_task_output.index(sorted_numbers_regex)).to be_truthy
 
   end
 end
