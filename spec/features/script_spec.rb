@@ -274,22 +274,36 @@ describe "count_and_sort.rake" do
       when 1
         puts "["
         answer_line = "["
-      when 2..(count + 2)
-        puts numbers[(index - 2)].to_s
-        answer_line = numbers[(index - 2)]
+      when 2..(count + 1)
+        puts "[" + (index - 2).to_s + "] " + numbers[(index - 2)].to_s
+        answer_line = "[" + (index - 2).to_s + "] " + numbers[(index - 2)].to_s
+      when (count + 2)
+        puts "]"
+        answer_line = "]"
       when (count + 3)
         puts"Count: #{count}"
         answer_line = "Count: #{count}"
       when count + 4
-        puts "Sorted numbers:"
-        answer_line = "Sorted numbers:"
-      when (count + 5)..(count * 2 + 4)
-        puts sorted_numbers[(index - count - 5)]
-        answer_line = sorted_numbers[(index - count - 5)]
+        puts "Sorted Numbers:"
+        answer_line = "Sorted Numbers:"
+      when count + 5
+        puts "["
+        answer_line = "["
+      when (count + 6)..(count * 2 + 5)
+        puts "[" + (index - count - 6).to_s + "] " + sorted_numbers[(index - count - 6)].to_s
+        answer_line =  "[" + (index - count - 6).to_s + "] " + sorted_numbers[(index - count - 6)].to_s
+      when count * 2 + 6
+        puts "]"
+        answer_line = "]"
       end
       puts "\n"
-      if answer_line.is_a?(String) && answer_line.size == 1
+      if answer_line.size == 1
         expect(line.index(answer_line)).to be_truthy
+      elsif answer_line.at(0) == "["
+        ap line
+        ap answer_line
+        expect(line.index(answer_line.split.at(0))).to be_truthy
+        expect(line.index(answer_line.split.at(1))).to be_truthy
       else
         expect(line.index(/#{answer_line}/)).to be_truthy
       end
