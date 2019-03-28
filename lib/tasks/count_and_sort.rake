@@ -10,8 +10,17 @@ task :count_and_sort do
   # =====================================================================
   count = 0
   ap "Your numbers:"
-  ap numbers
-  ap "Count: " + numbers.count.to_s
+  ap "["
+  numbers.each do |i|
+    ap "     [" + count.to_s + "]" + i.to_s + ','
+  end
+  ap "]"
+  ap "Count: " + count.to_s
   ap "Sorted Numbers:"
-  ap numbers.sort
+  ap "["
+  c = 0
+  numbers.sort.each do |n|
+    ap "     [" + c.to_s + "]" + n.to_s + ','
+  end
+  ap "]"
 end
