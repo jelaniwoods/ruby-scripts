@@ -259,22 +259,30 @@ describe "count_and_sort.rake" do
 
     regex_string = sorted_numbers.inject("") {|num, str| "#{Regexp.escape(num)}.*#{str}" }
     sorted_numbers_regex = Regexp.new(regex_string)
-    ap(sorted_numbers_regex)
+    # ap(sorted_numbers_regex)
 
     rake_task_output = capture_rake_task_output(task_name: 'count_and_sort')
 
     # ap(rake_task_output)
     rake_task_output.split("\n").each_with_index do |line, index|
-      ap line
-      if index > 1
+      puts "#{line} [#{index}]"
+      answer_line = ""
+      if index.between?(2, count + 2)
         if index <= count + 2
-          ap numbers[(index - 2)]
-        else
-          ap sorted_numbers[(index - count - 2)]
+          puts numbers[(index - 2)]
+          answer_line = numbers[(index - 2)]
+        else index < count + 2 + count
+          puts sorted_numbers[(index - count - 2)]
+          answer_line = sorted_numbers[(index - count - 2)]
         end
+      elsif index.between?(count + 2, count + 3)
+        puts count
+        answer_line = count
+      elsif index > count + 3
+        puts "test"
       end
-
-      # expect
+      puts "\n"
+      expect(line.index(/#{answer_line}/)).to be_truthy
     end
     # expect(rake_task_output.index(sorted_numbers_regex)).to be_truthy
 
