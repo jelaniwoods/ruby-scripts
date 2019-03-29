@@ -259,36 +259,9 @@ describe "count_and_sort.rake" do
 
     rake_task_output = capture_rake_task_output(task_name: 'count_and_sort')
 
-    rake_task_output.split("\n").each_with_index do |line, index|
-      answer_line = ""
-      case index
-      when 0
-        answer_line = "Your numbers:"
-      when 1
-        answer_line = "["
-      when 2..(count + 1)
-        answer_line = "[" + (index - 2).to_s + "] " + numbers[(index - 2)].to_s
-      when (count + 2)
-        answer_line = "]"
-      when (count + 3)
-        answer_line = "Count: #{count}"
-      when count + 4
-        answer_line = "Sorted Numbers:"
-      when count + 5
-        answer_line = "["
-      when (count + 6)..(count * 2 + 5)
-        answer_line =  "[" + (index - count - 6).to_s + "] " + sorted_numbers[(index - count - 6)].to_s
-      when count * 2 + 6
-        answer_line = "]"
-      end
-
-      if answer_line.size > 1 && answer_line.at(0) == "["
-        expect(line.index(answer_line.split.at(0))).to be_truthy
-        expect(line.index(answer_line.split.at(1))).to be_truthy
-      else
-        expect(line.index(answer_line)).to be_truthy
-      end
-    end
+    expect(rake_task_output).to include(numbers.awesome_inspect)
+    expect(rake_task_output).to include("Count: #{count}")
+    expect(rake_task_output).to include(sorted_numbers.awesome_inspect)
 
   end
 end
